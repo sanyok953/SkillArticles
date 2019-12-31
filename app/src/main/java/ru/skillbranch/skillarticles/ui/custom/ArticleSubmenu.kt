@@ -32,14 +32,14 @@ class ArticleSubmenu @JvmOverloads constructor(
     fun open() {
         if (isOpen || !isAttachedToWindow) return
         isOpen = true
-        visibility = View.VISIBLE
+        //visibility = View.VISIBLE
         animatedShow()
     }
 
     fun close() {
         if(!isOpen || !isAttachedToWindow) return
         isOpen = false
-        visibility = View.GONE
+        //visibility = View.GONE
         animatedHide()
     }
 
