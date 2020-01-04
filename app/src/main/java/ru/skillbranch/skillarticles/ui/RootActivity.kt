@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.layout_bottombar.*
-import kotlinx.android.synthetic.main.layout_search.*
 import kotlinx.android.synthetic.main.layout_submenu.*
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
@@ -46,7 +45,7 @@ class RootActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.root_menu, menu)
 
-        val searchItem = menu.findItem(R.id.search)
+        val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem?.actionView as SearchView
 
         val isSearch = viewModel.currentState.isSearch
