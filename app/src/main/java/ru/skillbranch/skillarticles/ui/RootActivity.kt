@@ -1,6 +1,5 @@
 package ru.skillbranch.skillarticles.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Selection
 import android.text.Spannable
@@ -10,11 +9,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.text.getSpans
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.layout_bottombar.*
@@ -34,20 +33,24 @@ import ru.skillbranch.skillarticles.viewmodels.ArticleState
 import ru.skillbranch.skillarticles.viewmodels.ArticleViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
 import ru.skillbranch.skillarticles.viewmodels.base.Notify
-import ru.skillbranch.skillarticles.viewmodels.base.ViewModelFactory
 
 class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    public override val binding: ArticleBinding by lazy { ArticleBinding() }
+
     override val layout: Int = R.layout.activity_root
+    override val viewModel: ArticleViewModel by provideViewModel("0")
 
-    override val viewModel: ArticleViewModel by lazy {
-        val vmFactory = ViewModelFactory(0)
-        ViewModelProviders.of(this, vmFactory).get(ArticleViewModel::class.java)
-    }
+//    override val viewModel: ArticleViewModel by lazy {
+//        val vmFactory = ViewModelFactory(0)
+//        ViewModelProviders.of(this, vmFactory).get(ArticleViewModel::class.java)
+//    }
 
-    override val binding: ArticleBinding by lazy { ArticleBinding() }
-
-    private val bgColor by AttrValue(R.attr.colorSecondary)
-    private val fgColor by AttrValue(R.attr.colorOnSecondary)
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val bgColor by AttrValue(R.attr.colorSecondary)
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val fgColor by AttrValue(R.attr.colorOnSecondary)
 
     override fun setupViews() {
         setupToolbar()
@@ -268,7 +271,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
 
         }
 
-        override fun onFinishInflale() {
+        override fun onFinishInflate() {
             dependsOn<Boolean, Boolean, List<Pair<Int, Int>>, Int> (
                 ::isLoadingContent,
                 ::isSearch,
